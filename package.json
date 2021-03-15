@@ -25,6 +25,7 @@
     "@ant-design/pro-layout": "^6.5.0",
     "@ant-design/pro-table": "^2.30.0",
     "@umijs/preset-react": "1.x",
+    "am-editable": "^0.0.5",
     "antd": "^4.12.3",
     "array-move": "^3.0.1",
     "axios": "^0.21.1",

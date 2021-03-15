@@ -1,35 +1,100 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { ContextMenu, MenuItem, ContextMenuTrigger } from 'react-contextmenu';
+import React, { useState } from 'react';
+import { Form, Table, Button, Input } from 'antd';
+export default function index() {
+  const list: any[] = [];
+  const [data, setData] = useState<any[]>(list);
 
-const MyApp = () => {
-  function handleClick(e, data) {
-    console.log(data.foo);
-  }
+  const changedColumnStatus = (record: any) => {
+    console.log(record);
+    record.status = !record.status;
+    setData([...data]);
+  };
+  const changedColumnValue = (value: any, record: any) => {
+    console.log(value);
+    record.realName = value;
+    setData([...data]);
+  };
+  const handleSave = () => {
+    data.map((item) => {
+      item.status = false;
+    });
+    setData([...data]);
+  };
+
+  const columns = [
+    {
+      title: '姓名',
+      dataIndex: 'realName',
+      key: 'realName',
+      render: (_: any, record: any) => {
+        if (record.status) {
+          return (
+            <Form.Item
+              rules={[{ required: true, message: '请输入年龄' }]}
+              name="realName"
+              initialValue={_}
+            >
+              <Input
+                onChange={(e) => {
+                  changedColumnValue(e.target.value, record);
+                }}
+              />
+            </Form.Item>
+          );
+        } else {
+          return <span>{_}</span>;
+        }
+      },
+    },
+    {
+      title: '年龄',
+      dataIndex: 'age',
+      key: 'age',
+    },
+    {
+      title: '住址',
+      dataIndex: 'address',
+      key: 'address',
+    },
+    {
+      title: '操作',
+      width: 200,
+      render: (_: any, record: any) => {
+        if (record.status) {
+          return (
+            <>
+              <Button htmlType="submit">保存</Button>
+              <Button>取消</Button>
+            </>
+          );
+        } else {
+          return (
+            <>
+              <Button
+                onClick={() => {
+                  changedColumnStatus(record);
+                }}
+              >
+                编辑
+              </Button>
+            </>
+          );
+        }
+      },
+    },
+  ];
+  const handleAdd = () => {
+    for (let i = 0; i < 10; i++) {
+      data.push({ realName: 'test', age: 17, address: '', status: false });
+    }
+    setData([...data]);
+  };
   return (
     <div>
-      {/* NOTICE: id must be unique between EVERY <ContextMenuTrigger> and <ContextMenu> pair */}
-      {/* NOTICE: inside the pair, <ContextMenuTrigger> and <ContextMenu> must have the same id */}
-
-      <ContextMenuTrigger id="same_unique_identifier">
-        <div className="well">Right click to see the menu</div>
-      </ContextMenuTrigger>
-
-      <ContextMenu id="same_unique_identifier">
-        <MenuItem data={{ foo: 'bar' }} onClick={handleClick}>
-          ContextMenu Item 1
-        </MenuItem>
-        <MenuItem data={{ foo: 'bar' }} onClick={handleClick}>
-          ContextMenu Item 2
-        </MenuItem>
-        <MenuItem divider />
-        <MenuItem data={{ foo: 'bar' }} onClick={handleClick}>
-          ContextMenu Item 3
-        </MenuItem>
-      </ContextMenu>
+      <Form onFinish={handleSave}>
+        <Table dataSource={data} columns={columns} />
+        <Button onClick={handleAdd}>添加</Button>
+      </Form>
     </div>
   );
-};
-
-// ReactDOM.render(<MyApp myProp={12}/>, document.getElementById("main"));
-export default MyApp;
+}
