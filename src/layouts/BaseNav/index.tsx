@@ -1,19 +1,13 @@
+import { PieChartOutlined } from '@ant-design/icons';
 import { Layout, Menu } from 'antd';
 import React, { useState } from 'react';
 import { history, useModel } from 'umi';
 import routes from '../../../config/routes';
-import {
-  AppstoreOutlined,
-  MenuUnfoldOutlined,
-  MenuFoldOutlined,
-  PieChartOutlined,
-  DesktopOutlined,
-  ContainerOutlined,
-  MailOutlined,
-} from '@ant-design/icons';
+import { useTranslation } from 'react-i18next';
 const { SubMenu } = Menu;
 const { Sider } = Layout;
 export default function Index() {
+  const { t, i18n } = useTranslation();
   const [selectedKey, setSelectedKey] = useState<string>('/');
   const { collapsed } = useModel('menuState', (model) => ({
     collapsed: model.collapsed,
@@ -40,7 +34,8 @@ export default function Index() {
             return (
               <SubMenu
                 key={item.path}
-                title={item.title}
+                // title={item.title}
+                title={t(item.name)}
                 icon={<PieChartOutlined />}
               >
                 {item.routes.map((i) => {
@@ -51,7 +46,7 @@ export default function Index() {
                         goPage(i);
                       }}
                     >
-                      {i.title}
+                      {t(i.name)}
                     </Menu.Item>
                   );
                 })}
@@ -66,51 +61,12 @@ export default function Index() {
                 }}
                 icon={<PieChartOutlined />}
               >
-                {item.title}
+                {/* {item.title} */}
+                {t(item.name)}
               </Menu.Item>
             );
           }
         })}
-        {/* <Menu.Item
-          key="/"
-          icon={<HomeOutlined />}
-          onClick={() => {
-            goPage('/');
-          }}
-        >
-          首页
-        </Menu.Item>
-        <Menu.Item
-          key="/user"
-          icon={<UserOutlined />}
-          onClick={() => {
-            goPage('/user');
-          }}
-        >
-          用户管理
-        </Menu.Item>
-        <SubMenu key="sub2" icon={<HomeOutlined />} title="拖拽">
-          <Menu.Item
-            key="/trag"
-            onClick={() => {
-              goPage('/trag');
-            }}
-          >
-            拖拽1
-          </Menu.Item>
-          <Menu.Item key="61">导入Excel</Menu.Item>
-        </SubMenu>
-        <SubMenu key="sub1" icon={<FileExcelOutlined />} title="Excel">
-          <Menu.Item
-            key="/excel"
-            onClick={() => {
-              goPage('/excel');
-            }}
-          >
-            导出Excel
-          </Menu.Item>
-          <Menu.Item key="6">导入Excel</Menu.Item>
-        </SubMenu> */}
       </Menu>
     </Sider>
   );

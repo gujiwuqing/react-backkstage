@@ -4,9 +4,15 @@ import FullScreen from '@/components/FullScreen';
 import { useModel } from 'umi';
 import { Layout } from 'antd';
 import UserInfo from './AvatarDropdown';
+import Language from './Language';
+// import i18n from "i18next";
 import './index.less';
+// import '@/i18n';
 const { Header } = Layout;
+
+import { useTranslation } from 'react-i18next';
 export default function Index() {
+  const { t, i18n } = useTranslation();
   const { collapsed, toggleCollapsed, toggleFalseCollapsed } = useModel(
     'menuState',
     (model) => ({
@@ -27,10 +33,23 @@ export default function Index() {
             },
           )}
         </div>
-        <span>后台管理系统</span>
+        <span
+          onClick={() => {
+            console.log('i18next.language', i18n.language);
+            // i18n.changeLanguage('zh_CN');
+            if (i18n.language == 'en_US') {
+              i18n.changeLanguage('zh_CN');
+            } else {
+              i18n.changeLanguage('en_US');
+            }
+          }}
+        >
+          {t('title')}
+        </span>
       </div>
       <div className="header-right">
         <FullScreen />
+        <Language />
         <UserInfo />
       </div>
     </Header>

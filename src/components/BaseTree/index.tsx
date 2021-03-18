@@ -5,6 +5,7 @@ interface BaseTreeProps {
   treeData?: any;
   expandedKeys?: any;
   isCheckBox?: boolean;
+  onSelect: () => void;
 }
 
 const defultTreeData = [
@@ -45,11 +46,8 @@ export default function BaseTree({
   treeData = defultTreeData,
   expandedKeys = ['0-0-0', '0-0-1'],
   isCheckBox = true,
+  onSelect,
 }: BaseTreeProps) {
-  const onSelect = (selectedKeys: React.Key[], info: any) => {
-    console.log('selected', selectedKeys, info);
-  };
-
   const onCheck = (checkedKeys: React.Key[], info: any) => {
     console.log('onCheck', checkedKeys, info);
   };

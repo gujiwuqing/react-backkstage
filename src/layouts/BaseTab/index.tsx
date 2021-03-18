@@ -2,18 +2,25 @@ import React from 'react';
 import { useModel, history } from 'umi';
 import { ContextMenu, MenuItem, ContextMenuTrigger } from 'react-contextmenu';
 import './index.less';
-
+import { useTranslation } from 'react-i18next';
 interface tabItem {
   title: string;
   path: string;
+  name: string;
 }
 export default function index() {
+  const { t, i18n } = useTranslation();
   const { tabList, changedTabList } = useModel('tab-list', (model) => ({
     tabList: model.tabList,
     changedTabList: model.changedTabList,
   }));
-  function handleClick(e, data) {
-    console.log(data.foo);
+  function handleClick(e: any, data: any) {
+    console.log(e);
+    const name = data.target.outerText;
+    const { choose } = data;
+    if (choose == '') {
+    } else if (choose == 'other') {
+    }
   }
   return (
     <>
@@ -33,21 +40,22 @@ export default function index() {
                 }}
               >
                 {' '}
-                {item.title}
+                {t(item.name)}
+                {/* {item.title} */}
               </div>
             </ContextMenuTrigger>
           );
         })}
       </div>
       <ContextMenu id="same_unique_identifier">
-        <MenuItem data={{ foo: 'bar' }} onClick={handleClick}>
+        <MenuItem data={{ choose: 'bar' }} onClick={handleClick}>
           刷新
         </MenuItem>
-        <MenuItem data={{ foo: 'bar' }} onClick={handleClick}>
+        <MenuItem data={{ choose: 'other' }} onClick={handleClick}>
           关闭其他
         </MenuItem>
         {/* <MenuItem divider /> */}
-        <MenuItem data={{ foo: 'bar' }} onClick={handleClick}>
+        <MenuItem data={{ choose: 'all' }} onClick={handleClick}>
           关闭所有
         </MenuItem>
       </ContextMenu>

@@ -13,4 +13,11 @@ export default defineConfig({
     '@backgroundColor': '#fff',
     '@color': '#fff',
   },
+  // locale: {
+  //   default: 'en-US',
+  //   antd: true,
+  //   title: true,
+  //   baseNavigator: true,
+  //   baseSeparator: '-',
+  // },
 });
