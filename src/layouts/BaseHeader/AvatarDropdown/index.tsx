@@ -2,8 +2,10 @@ import { DownOutlined } from '@ant-design/icons';
 import { Avatar, Dropdown, Menu, message, Popconfirm, Input, Form } from 'antd';
 import React from 'react';
 import { history, useModel } from 'umi';
+import { useTranslation } from 'react-i18next';
 import BaseModalForm from '@/components/BaseModalForm';
 const AvatarDropdown = () => {
+  const { t, i18n } = useTranslation();
   const { user } = useModel('user', (model) => ({
     user: model.user,
   }));
@@ -11,7 +13,7 @@ const AvatarDropdown = () => {
     <Menu>
       <Menu.Item>
         <a target="_blank" rel="noopener noreferrer">
-          个人中心
+          {t('user-info')}
         </a>
       </Menu.Item>
       <Menu.Item>
@@ -19,7 +21,7 @@ const AvatarDropdown = () => {
           title="修改密码"
           triggerRender={() => (
             <a target="_blank" rel="noopener noreferrer">
-              修改密码
+              {t('change-password')}
             </a>
           )}
         >
@@ -42,7 +44,7 @@ const AvatarDropdown = () => {
           okText="确定"
           cancelText="取消"
         >
-          <a href="#">退出登录</a>
+          <a href="#"> {t('sign-out')}</a>
         </Popconfirm>
       </Menu.Item>
     </Menu>

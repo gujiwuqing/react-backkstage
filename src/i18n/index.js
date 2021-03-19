@@ -15,6 +15,9 @@ const resources = {
       upload: 'Upload',
       table: 'Table',
       'user-list': 'User-List',
+      'user-info': 'User-Info',
+      'change-password': 'Change-Password',
+      'sign-out': 'Sign-Out',
     },
   },
   zh_CN: {
@@ -28,6 +31,9 @@ const resources = {
       upload: '上传',
       table: '表格',
       'user-list': '用户管理',
+      'user-info': '个人中心',
+      'change-password': '修改密码',
+      'sign-out': '修改密码',
     },
   },
 };

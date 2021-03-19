@@ -1,9 +1,16 @@
 import { useState, useCallback } from 'react';
-export default function menuState() {
+export default function User() {
   const [token, setToken] = useState('');
   const [user, setUser] = useState({});
+  const [themeColor, setThemeColor] = useState('#1890ff');
   const changedToken = useCallback((value) => {
     setToken(value);
+  }, []);
+
+  const changeThemeColor = useCallback((value) => {
+    console.log(value);
+    setThemeColor(value);
+    localStorage.setItem('themeColor', value);
   }, []);
 
   const changedUser = useCallback((value) => {
@@ -14,5 +21,7 @@ export default function menuState() {
     changedToken,
     user,
     changedUser,
+    themeColor,
+    changeThemeColor,
   };
 }

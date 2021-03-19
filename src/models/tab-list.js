@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react';
-export default function menuState() {
+export default function tabList() {
   // const [tabList, setTabList] = useState(JSON.parse(localStorage.getItem('tabList'))??[{ path: '/', title: '首页' }]);
   const [tabList, setTabList] = useState(
     JSON.parse(localStorage.getItem('tabList')) ?? [

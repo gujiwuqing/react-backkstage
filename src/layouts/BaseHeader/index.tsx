@@ -5,6 +5,7 @@ import { useModel } from 'umi';
 import { Layout } from 'antd';
 import UserInfo from './AvatarDropdown';
 import Language from './Language';
+import ThemeColor from './ThemeColor';
 // import i18n from "i18next";
 import './index.less';
 // import '@/i18n';
@@ -50,6 +51,7 @@ export default function Index() {
       <div className="header-right">
         <FullScreen />
         <Language />
+        <ThemeColor />
         <UserInfo />
       </div>
     </Header>

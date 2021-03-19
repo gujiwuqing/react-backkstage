@@ -6,6 +6,9 @@ export default function index() {
   const { t, i18n } = useTranslation();
   const onClick = ({ key }: any) => {
     i18n.changeLanguage(key);
+    key == 'zh_CN'
+      ? message.success('切换语言成功')
+      : message.success('Switch Language Success');
   };
   const menu = (
     <Menu onClick={onClick}>
