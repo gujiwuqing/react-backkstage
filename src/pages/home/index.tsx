@@ -24,7 +24,7 @@ const Home = () => {
                   <UserOutlined style={{ fontSize: '36px' }} />
                 </p>
                 <div>
-                  <p>New Visits</p>
+                  <p>新增用户</p>
                   <p>102400</p>
                 </div>
               </div>
@@ -35,7 +35,7 @@ const Home = () => {
                   <UserOutlined style={{ fontSize: '36px' }} />
                 </p>
                 <div>
-                  <p>Messages</p>
+                  <p>消息数</p>
                   <p>102400</p>
                 </div>
               </div>
@@ -46,7 +46,7 @@ const Home = () => {
                   <UserOutlined style={{ fontSize: '36px' }} />
                 </p>
                 <div>
-                  <p>Purchases</p>
+                  <p>访问量</p>
                   <p>102400</p>
                 </div>
               </div>

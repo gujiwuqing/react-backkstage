@@ -14,6 +14,7 @@ const resources = {
       test: 'Test',
       upload: 'Upload',
       table: 'Table',
+      editor: 'Editor',
       'user-list': 'User-List',
       'user-info': 'User-Info',
       'change-password': 'Change-Password',
@@ -30,6 +31,7 @@ const resources = {
       test: '测试',
       upload: '上传',
       table: '表格',
+      editor: '富文本编辑器',
       'user-list': '用户管理',
       'user-info': '个人中心',
       'change-password': '修改密码',
@@ -42,8 +44,8 @@ i18n
   .use(initReactI18next) // passes i18n down to react-i18next
   .init({
     resources,
-    lng: 'en_US',
-    fallbackLng: 'en_US',
+    lng: 'zh_CN',
+    fallbackLng: 'zh_CN',
     // backend: {
     //     //網頁載入時去下載語言檔的位置
     //     // loadPath: "locales/{{lng}}/{{ns}}.json",

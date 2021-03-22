@@ -1,9 +1,12 @@
-import { PieChartOutlined } from '@ant-design/icons';
+import { createFromIconfontCN } from '@ant-design/icons';
 import { Layout, Menu } from 'antd';
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { history, useModel } from 'umi';
 import routes from '../../../config/routes';
-import { useTranslation } from 'react-i18next';
+const IconFont = createFromIconfontCN({
+  scriptUrl: '//at.alicdn.com/t/font_2434100_xthguwpo5c.js',
+});
 const { SubMenu } = Menu;
 const { Sider } = Layout;
 export default function Index() {
@@ -34,9 +37,8 @@ export default function Index() {
             return (
               <SubMenu
                 key={item.path}
-                // title={item.title}
                 title={t(item.name)}
-                icon={<PieChartOutlined />}
+                icon={<IconFont type={item.icon}></IconFont>}
               >
                 {item.routes.map((i) => {
                   return (
@@ -59,9 +61,8 @@ export default function Index() {
                 onClick={() => {
                   goPage(item);
                 }}
-                icon={<PieChartOutlined />}
+                icon={<IconFont type={item.icon} />}
               >
-                {/* {item.title} */}
                 {t(item.name)}
               </Menu.Item>
             );
