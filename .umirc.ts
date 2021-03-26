@@ -1,5 +1,6 @@
 import { defineConfig } from 'umi';
 import routes from './config/routes';
+import path from 'path';
 export default defineConfig({
   nodeModulesTransform: {
     type: 'none',
@@ -9,7 +10,10 @@ export default defineConfig({
   devServer: {
     port: 8009,
   },
-  // theme: {
-  //   '@primary-color': '#00a74b',
+
+  // plugins: ['@alitajs/plugin-theme'],
+  // dynamicTheme: {
+  //   type: 'antd',
+  //   themeVariables: ['@layout-body-background'],
   // },
 });

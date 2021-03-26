@@ -4,6 +4,9 @@ import { Dropdown, Card } from 'antd';
 import { SketchPicker } from 'react-color';
 import { useModel } from 'umi';
 import './index.less';
+// import './theme.less';
+import { lightTheme, darkTheme } from './variable';
+
 export default function ThemeColor() {
   const [flag, setFlag] = useState(false);
   const { themeColor, changeThemeColor } = useModel('user', (model) => ({
@@ -39,7 +42,19 @@ export default function ThemeColor() {
               <div
                 key={c.color}
                 className={`item ${index === 0 ? 'white' : ''}`}
-                onClick={() => setColor(c.color)}
+                onClick={() => {
+                  setColor(c.color);
+                  if (c.name == '简洁蓝') {
+                    document.body.className = 'concise-blue';
+                    import('./theme-concise_blue.less');
+                  } else if (c.name == '希望青') {
+                    document.body.className = 'hope-green';
+                    import('./theme-hope_green.less');
+                  } else if (c.name == '清新绿') {
+                    document.body.className = 'green';
+                    import('./theme-green.less');
+                  }
+                }}
               >
                 <div style={{ background: c.color }}>
                   {color === c.color && (
@@ -57,7 +72,25 @@ export default function ThemeColor() {
               <div
                 key={c.color}
                 className="item"
-                onClick={() => setColor(c.color)}
+                onClick={() => {
+                  setColor(c.color);
+                  if (c.name == '优质紫') {
+                    document.body.className = 'purple';
+                    import('./theme-purple.less');
+                  } else if (c.name == '阳光黄') {
+                    document.body.className = 'yellow';
+                    import('./theme-yellow.less');
+                  } else if (c.name == '活力橙') {
+                    document.body.className = 'orange';
+                    import('./theme-orange.less');
+                  } else if (c.name == '中国红') {
+                    document.body.className = 'red';
+                    import('./theme-red.less');
+                  } else {
+                    document.body.className = 'dark';
+                    import('./theme-dark.less');
+                  }
+                }}
               >
                 <div style={{ background: c.color }}>
                   {color === c.color && (
