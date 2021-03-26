@@ -9,6 +9,7 @@ export default function index() {
     key == 'zh_CN'
       ? message.success('切换语言成功')
       : message.success('Switch Language Success');
+    localStorage.setItem('language', key);
   };
   const menu = (
     <Menu onClick={onClick}>
