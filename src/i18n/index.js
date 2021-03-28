@@ -1,11 +1,7 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
-import Backend from 'i18next-http-backend';
-// the translations
-// (tip move them in a JSON file and import them)
 import zh_CNCommon from './locales/zh_CN.json';
 import en_USCommon from './locales/en_US.json';
-import { LanguageServiceMode } from 'typescript';
 const resources = {
   en_US: {
     translation: {
