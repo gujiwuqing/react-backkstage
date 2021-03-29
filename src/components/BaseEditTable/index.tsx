@@ -1,24 +1,29 @@
 import React, { useState } from 'react';
-import { Form, Table, Button, Input } from 'antd';
+import { Form, Table, Button, Input, Select } from 'antd';
+import shortid from 'shortid';
+
+const { Option } = Select;
 export default function index() {
+  const [form] = Form.useForm();
   const list: any[] = [];
   const [data, setData] = useState<any[]>(list);
-
+  const [obj, setObj] = useState<any>({});
   const changedColumnStatus = (record: any) => {
     console.log(record);
     record.status = !record.status;
     setData([...data]);
   };
-  const changedColumnValue = (value: any, record: any) => {
-    console.log(value);
-    record.realName = value;
+  const changedColumnValue = (type: any, value: any, record: any) => {
+    record.type = value;
     setData([...data]);
   };
-  const handleSave = () => {
+  const handleSave = (record: any) => {
+    console.log(record);
     data.map((item) => {
       item.status = false;
     });
     setData([...data]);
+    console.log(data);
   };
 
   const columns = [
@@ -31,12 +36,12 @@ export default function index() {
           return (
             <Form.Item
               rules={[{ required: true, message: '请输入年龄' }]}
-              name="realName"
+              name={`realName_${record.id}`}
               initialValue={_}
             >
               <Input
                 onChange={(e) => {
-                  changedColumnValue(e.target.value, record);
+                  changedColumnValue('realName', e.target.value, record);
                 }}
               />
             </Form.Item>
@@ -50,11 +55,53 @@ export default function index() {
       title: '年龄',
       dataIndex: 'age',
       key: 'age',
+      render: (_: any, record: any) => {
+        if (record.status) {
+          return (
+            <Form.Item
+              rules={[{ required: true, message: '请输入年龄' }]}
+              name={`age${record.id}`}
+              initialValue={_}
+            >
+              <Input
+                onChange={(e) => {
+                  changedColumnValue('age', e.target.value, record);
+                }}
+              />
+            </Form.Item>
+          );
+        } else {
+          return <span>{_}</span>;
+        }
+      },
     },
     {
       title: '住址',
       dataIndex: 'address',
       key: 'address',
+      render: (_: any, record: any) => {
+        if (record.status) {
+          return (
+            <Form.Item
+              rules={[{ required: true, message: '请输入年龄' }]}
+              name={`address${record.id}`}
+              initialValue={record.address}
+            >
+              <Select
+                style={{ width: 120 }}
+                onChange={(value) => {
+                  record.address = value;
+                }}
+              >
+                <Option value="jack">Jack</Option>
+                <Option value="lucy">Lucy</Option>
+              </Select>
+            </Form.Item>
+          );
+        } else {
+          return <span>{_}</span>;
+        }
+      },
     },
     {
       title: '操作',
@@ -63,8 +110,17 @@ export default function index() {
         if (record.status) {
           return (
             <>
-              <Button htmlType="submit">保存</Button>
-              <Button>取消</Button>
+              <Button onClick={() => handleSave(record)}>保存</Button>
+              <Button
+                onClick={() => {
+                  // record = { ...obj };
+                  record.status = false;
+                  form.resetFields();
+                  setData([...data]);
+                }}
+              >
+                取消
+              </Button>
             </>
           );
         } else {
@@ -73,6 +129,7 @@ export default function index() {
               <Button
                 onClick={() => {
                   changedColumnStatus(record);
+                  setObj({ ...record });
                 }}
               >
                 编辑
@@ -85,14 +142,24 @@ export default function index() {
   ];
   const handleAdd = () => {
     for (let i = 0; i < 10; i++) {
-      data.push({ realName: 'test', age: 17, address: '', status: false });
+      data.push({
+        realName: 'test',
+        age: 17,
+        address: 'jack',
+        status: false,
+        id: shortid.generate(),
+      });
     }
     setData([...data]);
   };
   return (
     <div>
-      <Form onFinish={handleSave}>
-        <Table dataSource={data} columns={columns} />
+      <Form form={form}>
+        <Table
+          dataSource={data}
+          columns={columns}
+          rowKey={(record) => record.id}
+        />
         <Button onClick={handleAdd}>添加</Button>
       </Form>
     </div>
