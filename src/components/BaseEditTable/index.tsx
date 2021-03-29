@@ -14,11 +14,13 @@ export default function index() {
     setData([...data]);
   };
   const changedColumnValue = (type: any, value: any, record: any) => {
-    record.type = value;
+    console.log('type', record.type);
+    record[type] = value;
+    console.log('changedColumnValue', record);
     setData([...data]);
   };
   const handleSave = (record: any) => {
-    console.log(record);
+    console.log('handleSave', record);
     data.map((item) => {
       item.status = false;
     });
@@ -110,7 +112,12 @@ export default function index() {
         if (record.status) {
           return (
             <>
-              <Button onClick={() => handleSave(record)}>保存</Button>
+              <Button
+                onClick={() => handleSave(record)}
+                style={{ marginRight: '10px' }}
+              >
+                保存
+              </Button>
               <Button
                 onClick={() => {
                   // record = { ...obj };
