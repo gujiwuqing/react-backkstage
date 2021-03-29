@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import { Form, Table, Button, Input, Select } from 'antd';
 import shortid from 'shortid';
+import './index.less';
 
 const { Option } = Select;
-export default function index() {
+const BaseEditTable = () => {
   const [form] = Form.useForm();
   const list: any[] = [];
   const [data, setData] = useState<any[]>(list);
-  const [obj, setObj] = useState<any>({});
+  const [count, setCount] = useState<number>(1);
   const changedColumnStatus = (record: any) => {
     console.log(record);
     record.status = !record.status;
@@ -136,7 +137,6 @@ export default function index() {
               <Button
                 onClick={() => {
                   changedColumnStatus(record);
-                  setObj({ ...record });
                 }}
               >
                 编辑
@@ -148,7 +148,7 @@ export default function index() {
     },
   ];
   const handleAdd = () => {
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < count; i++) {
       data.push({
         realName: 'test',
         age: 17,
@@ -167,8 +167,20 @@ export default function index() {
           columns={columns}
           rowKey={(record) => record.id}
         />
-        <Button onClick={handleAdd}>添加</Button>
+        <div className="table-footer">
+          <Button onClick={handleAdd} type="primary">
+            添加
+          </Button>
+          <Input
+            onChange={(e: any) => setCount(e.target.value)}
+            className="footer-input"
+            placeholder="请输入你想添加的数量"
+          />
+          <span>条数据</span>
+        </div>
       </Form>
     </div>
   );
-}
+};
+
+export default BaseEditTable;
