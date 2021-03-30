@@ -29,6 +29,12 @@ const routes = [
             component: '@/pages/user',
             name: 'user-list',
           },
+          {
+            path: '/table/edit-table',
+            title: '可编辑表格',
+            component: '@/pages/edit-table',
+            name: 'table-edit',
+          },
         ],
       },
       {

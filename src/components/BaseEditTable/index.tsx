@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Form, Table, Button, Input, Select } from 'antd';
+import { Form, Table, Button, Input, Select, message } from 'antd';
 import shortid from 'shortid';
 import './index.less';
 
@@ -9,24 +9,34 @@ const BaseEditTable = () => {
   const list: any[] = [];
   const [data, setData] = useState<any[]>(list);
   const [count, setCount] = useState<number>(1);
+  const [obj, setObj] = useState<any>({});
   const changedColumnStatus = (record: any) => {
-    console.log(record);
-    record.status = !record.status;
-    setData([...data]);
+    const statusCount = data.filter((t) => t.status == true);
+    if (statusCount.length > 0) {
+      message.warning('只能同时修改一行');
+    } else {
+      setObj({ ...record });
+      record.status = !record.status;
+      setData([...data]);
+    }
   };
   const changedColumnValue = (type: any, value: any, record: any) => {
-    console.log('type', record.type);
     record[type] = value;
-    console.log('changedColumnValue', record);
     setData([...data]);
   };
   const handleSave = (record: any) => {
     console.log('handleSave', record);
-    data.map((item) => {
-      item.status = false;
+    form.validateFields().then((values) => {
+      record.status = !record.status;
+      setData([...data]);
+      console.log(data);
     });
-    setData([...data]);
-    console.log(data);
+  };
+
+  const changeEvent = (e: any) => {
+    let value = e.target.value.replace(/[^\d]/, '');
+    console.log('value', value);
+    setCount(value);
   };
 
   const columns = [
@@ -38,7 +48,7 @@ const BaseEditTable = () => {
         if (record.status) {
           return (
             <Form.Item
-              rules={[{ required: true, message: '请输入年龄' }]}
+              rules={[{ required: true, message: '请输入姓名' }]}
               name={`realName_${record.id}`}
               initialValue={_}
             >
@@ -121,9 +131,14 @@ const BaseEditTable = () => {
               </Button>
               <Button
                 onClick={() => {
-                  // record = { ...obj };
-                  record.status = false;
-                  form.resetFields();
+                  // record.status = false;
+                  // form.resetFields();
+                  console.log('obj', obj);
+                  // record = JSON.parse(JSON.stringify(obj));
+                  for (const key in obj) {
+                    record[key] = obj[key];
+                  }
+                  console.log('record', record);
                   setData([...data]);
                 }}
               >
@@ -172,9 +187,10 @@ const BaseEditTable = () => {
             添加
           </Button>
           <Input
-            onChange={(e: any) => setCount(e.target.value)}
+            onChange={(e: any) => changeEvent(e)}
             className="footer-input"
             placeholder="请输入你想添加的数量"
+            value={count}
           />
           <span>条数据</span>
         </div>
