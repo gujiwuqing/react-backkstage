@@ -1,16 +1,9 @@
-import { UserOutlined } from '@ant-design/icons';
+import { UserOutlined, MessageOutlined, EyeOutlined } from '@ant-design/icons';
 import { Col, Row } from 'antd';
 import React from 'react';
 import LineEcharts from './components/LineEcharts';
 import BasePage from '@/components/BasePage';
 import './index.less';
-const style = {
-  display: 'flex',
-  justifyContent: 'space-between',
-  alignItems: 'center',
-  padding: '8px 16px',
-  background: '#fff',
-};
 
 const Home = () => {
   return (
@@ -19,7 +12,7 @@ const Home = () => {
         <div className="home-container_header">
           <Row gutter={16}>
             <Col className="gutter-row" span={6}>
-              <div style={style}>
+              <div className="header-item">
                 <p>
                   <UserOutlined style={{ fontSize: '36px' }} />
                 </p>
@@ -30,9 +23,9 @@ const Home = () => {
               </div>
             </Col>
             <Col className="gutter-row" span={6}>
-              <div style={style}>
+              <div className="header-item">
                 <p>
-                  <UserOutlined style={{ fontSize: '36px' }} />
+                  <MessageOutlined style={{ fontSize: '36px' }} />
                 </p>
                 <div>
                   <p>消息数</p>
@@ -41,9 +34,9 @@ const Home = () => {
               </div>
             </Col>
             <Col className="gutter-row" span={6}>
-              <div style={style}>
+              <div className="header-item">
                 <p>
-                  <UserOutlined style={{ fontSize: '36px' }} />
+                  <EyeOutlined style={{ fontSize: '36px' }} />
                 </p>
                 <div>
                   <p>访问量</p>
@@ -52,7 +45,7 @@ const Home = () => {
               </div>
             </Col>
             <Col className="gutter-row" span={6}>
-              <div style={style}>
+              <div className="header-item">
                 <p>
                   <UserOutlined style={{ fontSize: '36px' }} />
                 </p>
