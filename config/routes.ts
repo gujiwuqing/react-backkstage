@@ -35,6 +35,12 @@ const routes = [
             component: '@/pages/edit-table',
             name: 'table-edit',
           },
+          {
+            path: '/table/drag-table',
+            title: '可拖拽表格',
+            component: '@/pages/drag-table',
+            name: 'table-drag',
+          },
         ],
       },
       {
