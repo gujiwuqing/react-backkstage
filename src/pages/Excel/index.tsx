@@ -1,6 +1,6 @@
 import ExportJsonExcel from 'js-export-excel';
 import React from 'react';
-import ex from 'umi/dist';
+import { Table, Button } from 'antd';
 
 const tableData = [
   {
@@ -29,10 +29,25 @@ const tableData = [
     invitedBuyer: 'test',
   },
 ];
+
 const Excel = () => {
+  const columns = [
+    {
+      title: '产品编号',
+      dataIndex: 'itemCode',
+    },
+    {
+      title: '受邀时间',
+      dataIndex: 'invitedTime',
+    },
+    {
+      title: '受邀买家',
+      dataIndex: 'invitedBuyer',
+    },
+  ];
   const ExportBtnClick = () => {
     const data = tableData; //表格内部数据
-    var option = {};
+    const option = {};
     let dataTable = [];
     if (data) {
       for (let i in data) {
@@ -46,7 +61,7 @@ const Excel = () => {
         }
       }
     }
-    option.fileName = '无购买邀评管理'; //设置excel名称
+    option.fileName = 'Test Excel'; //设置excel名称
     option.datas = [
       {
         sheetData: dataTable,
@@ -59,9 +74,16 @@ const Excel = () => {
     toExcel.saveExcel();
   };
   return (
-    <button className="formBtn searchBtn" onClick={ExportBtnClick}>
-      导出
-    </button>
+    <>
+      <Button
+        type="primary"
+        onClick={ExportBtnClick}
+        style={{ marginBottom: 20 }}
+      >
+        导出
+      </Button>
+      <Table dataSource={tableData} columns={columns} />
+    </>
   );
 };
 

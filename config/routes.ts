@@ -74,9 +74,16 @@ const routes = [
       {
         path: '/editor',
         title: '编辑器',
-        component: '@/pages/editor',
         name: 'editor',
         icon: 'iconfile',
+        routes: [
+          {
+            path: '/editor/markdown',
+            title: 'Markdown编辑器',
+            component: '@/pages/editor/markdown',
+            name: 'markdown',
+          },
+        ],
       },
     ],
   },

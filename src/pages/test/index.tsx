@@ -1,8 +1,6 @@
-import React, { useState, useRef } from 'react';
-import { Form, Input, Button, Table } from 'antd';
-import BaseEditTable from '@/components/BaseEditTable';
+import React from 'react';
 
-const EditTable = () => {
-  return <BaseEditTable />;
+const Test = () => {
+  return <div></div>;
 };
-export default EditTable;
+export default Test;

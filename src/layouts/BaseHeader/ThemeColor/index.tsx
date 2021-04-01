@@ -10,6 +10,8 @@ export default function ThemeColor() {
     if (themeColor) {
       setColor(themeColor);
       changeAntdTheme(themeColor);
+    } else {
+      changeAntdTheme(color);
     }
   }, []);
   const [color, setColor] = useState('#2593ff');

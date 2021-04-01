@@ -1,5 +1,5 @@
-import { Upload, message } from 'antd';
-import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
+import { Upload, message, Button } from 'antd';
+import { PlusOutlined, UploadOutlined } from '@ant-design/icons';
 import { useState } from 'react';
 
 function getBase64(
@@ -23,42 +23,24 @@ function beforeUpload(file: { type: string; size: number }) {
   return isJpgOrPng && isLt2M;
 }
 export const ImageUpload = () => {
-  const [loading, setLoading] = useState<boolean>(false);
-  const [imageUrl, setImageUrl] = useState<string>('');
-  const handleChange = (info: any) => {
-    if (info.file.status === 'uploading') {
-      setLoading(true);
-      return;
-    }
-    if (info.file.status === 'done') {
-      // Get this url from response in real world.
-      getBase64(info.file.originFileObj, (imageUrl: any) => {
-        setLoading(false);
-        setImageUrl(imageUrl);
-      });
-    }
-  };
+  const [fileList, setFileList] = useState<any[]>([]);
+  const handleChange = ({ file }: any) => {};
   const uploadButton = (
     <div>
-      {loading ? <LoadingOutlined /> : <PlusOutlined />}
+      <PlusOutlined />
       <div style={{ marginTop: 8 }}>Upload</div>
     </div>
   );
   return (
     <Upload
-      name="avatar"
       listType="picture-card"
-      className="avatar-uploader"
       showUploadList={false}
-      action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+      action="https://www.fastmock.site/mock/85c752f2a572df1e979659e4912eefd4/backstage/img/upload"
       beforeUpload={beforeUpload}
       onChange={handleChange}
+      fileList={fileList}
     >
-      {imageUrl ? (
-        <img src={imageUrl} alt="avatar" style={{ width: '100%' }} />
-      ) : (
-        uploadButton
-      )}
+      {fileList.length >= 8 ? null : uploadButton}
     </Upload>
   );
 };
