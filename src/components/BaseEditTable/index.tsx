@@ -2,7 +2,15 @@ import React, { useState } from 'react';
 import { Form, Table, Button, Input, Select, message } from 'antd';
 import shortid from 'shortid';
 import './index.less';
-
+import { limitNumber } from '@/utils/global';
+export interface BaseEditTableProps {
+  handleAdd: () => void;
+  count: number;
+  data: any[];
+  setCount: React.Dispatch<React.SetStateAction<number>>;
+  setData: React.Dispatch<React.SetStateAction<any[]>>;
+  columns: any;
+}
 const { Option } = Select;
 const BaseEditTable = () => {
   const [form] = Form.useForm();
@@ -15,24 +23,45 @@ const BaseEditTable = () => {
     if (statusCount.length > 0) {
       message.warning('只能同时修改一行');
     } else {
+      console.log('update', record);
       setObj({ ...record });
       record.status = !record.status;
+      console.log(data);
       setData([...data]);
     }
   };
   const changedColumnValue = (type: any, value: any, record: any) => {
-    record[type] = value;
-    setData([...data]);
+    data.map((item) => {
+      if (item.id === record.id) {
+        item[type] = value;
+      }
+      return item;
+    });
+    // setData([...data]);
   };
   const handleSave = (record: any) => {
-    console.log('handleSave', record);
+    console.log('record=>', record);
+    console.log('data=>', data);
+    // console.log('handleSave', record);
     form.validateFields().then((values) => {
       record.status = !record.status;
       setData([...data]);
-      console.log(data);
+      // console.log(data);
     });
   };
-
+  /**
+   * 取消
+   * @param record
+   */
+  const handleCancle = (record: any) => {
+    form.resetFields();
+    console.log('obj', obj);
+    // record = JSON.parse(JSON.stringify(obj));
+    for (const key in obj) {
+      record[key] = obj[key];
+    }
+    setData([...data]);
+  };
   const changeEvent = (e: any) => {
     let value = e.target.value.replace(/[^\d]/, '');
     console.log('value', value);
@@ -50,7 +79,7 @@ const BaseEditTable = () => {
             <Form.Item
               rules={[{ required: true, message: '请输入姓名' }]}
               name={`realName_${record.id}`}
-              initialValue={_}
+              initialValue={record.realName}
             >
               <Input
                 onChange={(e) => {
@@ -79,6 +108,15 @@ const BaseEditTable = () => {
               <Input
                 onChange={(e) => {
                   changedColumnValue('age', e.target.value, record);
+                  const { value } = e.target;
+                  const reg = /^-?\d*(\.\d*)?$/;
+                  if (
+                    (!isNaN(Number(value)) && reg.test(value)) ||
+                    value === '' ||
+                    value === '-'
+                  ) {
+                    console.log(value);
+                  }
                 }}
               />
             </Form.Item>
@@ -131,15 +169,7 @@ const BaseEditTable = () => {
               </Button>
               <Button
                 onClick={() => {
-                  // record.status = false;
-                  // form.resetFields();
-                  console.log('obj', obj);
-                  // record = JSON.parse(JSON.stringify(obj));
-                  for (const key in obj) {
-                    record[key] = obj[key];
-                  }
-                  console.log('record', record);
-                  setData([...data]);
+                  handleCancle(record);
                 }}
               >
                 取消
@@ -163,7 +193,7 @@ const BaseEditTable = () => {
     },
   ];
   const handleAdd = () => {
-    for (let i = 0; i < count; i++) {
+    for (let i = 1; i <= count; i++) {
       data.push({
         realName: 'test',
         age: 17,

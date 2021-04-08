@@ -1,0 +1,10 @@
+/* 限制数字输入框只能输入整数 */
+export const limitNumber = (value: any) => {
+  if (typeof value === 'string') {
+    return !isNaN(Number(value)) ? value.replace(/^(0+)|[^\d]/g, '') : '';
+  } else if (typeof value === 'number') {
+    return !isNaN(value) ? String(value).replace(/^(0+)|[^\d]/g, '') : '';
+  } else {
+    return '';
+  }
+};
