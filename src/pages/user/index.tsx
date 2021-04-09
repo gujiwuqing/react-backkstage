@@ -1,43 +1,67 @@
 import React, { useState } from 'react';
-import { Form, Input, Button, message, Switch, TreeSelect } from 'antd';
+import { Form, Input, Button, message, Switch, TreeSelect, Select } from 'antd';
 import BaseEditTable from '@/components/BaseEditTable';
 import shortid from 'shortid';
 import './index.less';
+
+const { Option } = Select;
+
+interface roleItem {
+  label: string;
+  value: number;
+}
+
+const treeData = [
+  {
+    title: '江西省',
+    value: '0-0',
+    children: [
+      {
+        title: '南昌市',
+        value: '0-0-1',
+      },
+      {
+        title: '九江市',
+        value: '0-0-2',
+      },
+    ],
+  },
+  {
+    title: '湖北省',
+    value: '0-1',
+    children: [
+      {
+        title: '襄阳市',
+        value: '0-1-1',
+      },
+      {
+        title: '武汉市',
+        value: '0-1-2',
+      },
+    ],
+  },
+];
+
+const roleList: roleItem[] = [
+  {
+    label: '超级管理员',
+    value: 1,
+  },
+  {
+    label: '管理员',
+    value: 2,
+  },
+  {
+    label: '普通员工',
+    value: 3,
+  },
+];
 const EditTable = () => {
   const [form] = Form.useForm();
   const [data, setData] = useState<any[]>([]);
   const [count, setCount] = useState<number>(1);
   const [obj, setObj] = useState<any>({});
-  const treeData = [
-    {
-      title: '江西省',
-      value: '0-0',
-      children: [
-        {
-          title: '南昌市',
-          value: '0-0-1',
-        },
-        {
-          title: '九江市',
-          value: '0-0-2',
-        },
-      ],
-    },
-    {
-      title: '湖北省',
-      value: '0-1',
-      children: [
-        {
-          title: '襄阳市',
-          value: '0-1-1',
-        },
-        {
-          title: '武汉市',
-          value: '0-1-2',
-        },
-      ],
-    },
-  ];
+  const [role, setRole] = useState<roleItem>(roleList[0]);
   const changedColumnStatus = (record: any) => {
     const statusCount = data.filter((t) => t.status == true);
     if (statusCount.length > 0) {
@@ -97,6 +121,18 @@ const EditTable = () => {
     return title;
   };
 
+  /*
+   * 提交数据
+   * */
+  const onSave = () => {
+    form.validateFields().then((values) => {
+      console.log(data);
+      data.map((item) => {
+        item.address = item.address.value;
+      });
+    });
+    console.log('data', data);
+  };
   const columns = [
     {
       title: '姓名',
@@ -168,7 +204,8 @@ const EditTable = () => {
                 {
                   validator: (_rule: any, value: string, callback: any) => {
                     const oldVal = record.password;
-                    if (value && oldVal !== value) {
+                    if (value && oldVal != value) {
+                      console.log('oldVal', oldVal, 'value', value);
                       callback(new Error('两次密码输入不一致'));
                     } else {
                       callback();
@@ -204,7 +241,7 @@ const EditTable = () => {
       title: '住址',
       dataIndex: 'address',
       key: 'address',
-      width: 300,
+      width: 250,
       render: (_: any, record: any) => {
         if (record.status) {
           return (
@@ -231,6 +268,108 @@ const EditTable = () => {
           // console.log('getValue(treeData,record.address)',getValue(treeData, record.address));
           // return  getValue(treeData,record.address)
           return <span>{_.label}</span>;
+        }
+      },
+    },
+    {
+      title: '角色',
+      dataIndex: 'roleId',
+      key: 'roleId',
+      width: 200,
+      render: (_: any, record: any) => {
+        if (record.status) {
+          return (
+            <Form.Item
+              rules={[{ required: true, message: '请输入年龄' }]}
+              name={`roleId${record.id}`}
+              initialValue={record.roleId}
+            >
+              <Select
+                labelInValue={true}
+                onChange={(value) => {
+                  record.roleId = value;
+                }}
+              >
+                {roleList.map((item) => {
+                  return <Option value={item.value}>{item.label}</Option>;
+                })}
+              </Select>
+            </Form.Item>
+          );
+        } else {
+          // console.log('getValue(treeData,record.address)',getValue(treeData, record.address));
+          // return  getValue(treeData,record.address)
+          return <span>{_.label}</span>;
+        }
+      },
+    },
+    {
+      title: '联系方式',
+      dataIndex: 'phone',
+      key: 'phone',
+      render: (_: any, record: any) => {
+        if (record.status) {
+          return (
+            <Form.Item
+              rules={[
+                {
+                  validator: (_rule: any, value: string, callback: any) => {
+                    const regex = /^((\+)?86|((\+)?86)?)0?1[3458]\d{9}$/;
+                    if (!value || regex.test(value)) {
+                      return Promise.resolve();
+                    } else {
+                      return Promise.reject('请输入正确的手机号码！');
+                    }
+                  },
+                },
+              ]}
+              name={`phone${record.id}`}
+              initialValue={record.phone}
+            >
+              <Input
+                onChange={(e) => {
+                  changedColumnValue('phone', e.target.value, record);
+                }}
+              />
+            </Form.Item>
+          );
+        } else {
+          return <span>{_}</span>;
+        }
+      },
+    },
+    {
+      title: '电子邮箱',
+      dataIndex: 'email',
+      key: 'email',
+      render: (_: any, record: any) => {
+        if (record.status) {
+          return (
+            <Form.Item
+              rules={[
+                {
+                  validator: (_rule: any, value: string, callback: any) => {
+                    const regex = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
+                    if (!value || regex.test(value)) {
+                      return Promise.resolve();
+                    } else {
+                      return Promise.reject('请输入正确的电子邮箱！');
+                    }
+                  },
+                },
+              ]}
+              name={`email${record.id}`}
+              initialValue={record.email}
+            >
+              <Input
+                onChange={(e) => {
+                  changedColumnValue('email', e.target.value, record);
+                }}
+              />
+            </Form.Item>
+          );
+        } else {
+          return <span>{_}</span>;
         }
       },
     },
@@ -293,6 +432,10 @@ const EditTable = () => {
       },
     },
   ];
+
+  /*
+   *  批量添加数据
+   */
   const handleAdd = () => {
     for (let i = 1; i <= count; i++) {
       data.push({
@@ -300,22 +443,29 @@ const EditTable = () => {
         password: 123456,
         password2: 123456,
         address: { value: '0-1-1', label: '襄阳市' },
+        roleId: role,
         status: false,
+        phone: 15274857485,
+        email: '12378974@qq.com',
         userStatus: false,
         id: shortid.generate(),
       });
     }
     setData([...data]);
   };
+
+  /**
+   * 获取输入框的值
+   */
+  const changeEvent = (e: any) => {
+    let value = e.target.value.replace(/[^\d]/, '');
+    console.log('value', value);
+    setCount(value);
+  };
+
   return (
     <Form form={form} className="user-form">
-      <Button
-        onClick={() => {
-          console.log('data', data);
-        }}
-        type="primary"
-        className="user-form_save"
-      >
+      <Button onClick={onSave} type="primary" className="user-form_save">
         保存
       </Button>
       <BaseEditTable
@@ -325,6 +475,31 @@ const EditTable = () => {
         setCount={setCount}
         handleAdd={handleAdd}
         setData={setData}
+        tableFooter={() => (
+          <>
+            <Button onClick={handleAdd} type="primary">
+              添加
+            </Button>
+            <Input
+              className="footer-input"
+              placeholder="请输入你想添加的数量"
+              value={count}
+              onChange={(e: any) => changeEvent(e)}
+            />
+            <span>条数据</span>
+            <Select
+              style={{ width: 300 }}
+              placeholder="请选择角色"
+              defaultValue={role}
+              labelInValue={true}
+              onChange={(value) => setRole(value)}
+            >
+              {roleList.map((item) => {
+                return <Option value={item.value}>{item.label}</Option>;
+              })}
+            </Select>
+          </>
+        )}
       />
     </Form>
   );

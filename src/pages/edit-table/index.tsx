@@ -1,7 +1,8 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import { Form, Input, Button, message, Select } from 'antd';
 import BaseEditTable from '@/components/BaseEditTable';
 import shortid from 'shortid';
+
 const { Option } = Select;
 const EditTable = () => {
   const [form] = Form.useForm();
@@ -195,14 +196,16 @@ const EditTable = () => {
     setData([...data]);
   };
   return (
-    <BaseEditTable
-      columns={columns}
-      data={data}
-      count={count}
-      setCount={setCount}
-      handleAdd={handleAdd}
-      setData={setData}
-    />
+    <Form form={form}>
+      <BaseEditTable
+        columns={columns}
+        data={data}
+        count={count}
+        setCount={setCount}
+        handleAdd={handleAdd}
+        setData={setData}
+      />
+    </Form>
   );
 };
 export default EditTable;
