@@ -9,4 +9,5 @@ export default defineConfig({
     port: 8009,
   },
   fastRefresh: {},
+  mock: {},
 });
