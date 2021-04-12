@@ -4,8 +4,10 @@ import React from 'react';
 import LineEcharts from './components/LineEcharts';
 import BasePage from '@/components/BasePage';
 import './index.less';
-
+import useCityList from '@/utils/useCityList';
 const Home = () => {
+  const { cityList, loading } = useCityList();
+  console.log(cityList);
   return (
     <BasePage>
       <div style={{ width: '100%' }} className="home-container">
