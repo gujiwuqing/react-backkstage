@@ -83,6 +83,12 @@ const routes = [
             component: '@/pages/editor/markdown',
             name: 'markdown',
           },
+          {
+            path: '/editor/Editor',
+            title: 'Markdown编辑器',
+            component: '@/pages/editor/Editor',
+            name: 'markdown',
+          },
         ],
       },
     ],

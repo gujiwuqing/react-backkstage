@@ -3,10 +3,20 @@ import { Button, Checkbox, Col, Collapse, Row } from 'antd';
 import React from 'react';
 import './index.less';
 const { Panel } = Collapse;
+
+interface menuItemPorps {
+  key: string | number;
+  name: string;
+  onlyTwo: number;
+  operatingFlag: number;
+  permissionFlag: number;
+  flag: boolean;
+  children?: menuItemPorps[];
+}
 export default function index() {
   const [set, { add, has, remove, reset }] = useSet<any>([]);
 
-  const data = [
+  const data: menuItemPorps[] = [
     {
       key: '1346644430031007746',
       name: '首页',
@@ -164,29 +174,16 @@ export default function index() {
     data: [...data],
   });
   const clickOne = (key: string | number) => {
-    console.log('222');
     if (set.has(key)) {
       set.delete(key);
     } else {
       set.add(key);
     }
-    console.log('set', set);
   };
 
-  const SecondIndeterminate = (data: any) => {
-    if (data.children) {
-      let arr: boolean[] = [];
-      data.children.map((item: any) => {
-        if (Array.from(set).includes(item.key)) {
-          arr.push(item.key);
-        }
-      });
-      console.log(arr);
-      if (arr.length > 0) {
-        return true;
-      } else {
-        return false;
-      }
+  const checkFather = (value: any, father: any, Ancestor?: any) => {
+    console.log(value, father, Ancestor);
+    if (Ancestor) {
     }
   };
 
@@ -227,6 +224,7 @@ export default function index() {
                                   <Checkbox
                                     className="header-content_name"
                                     value={t.key}
+                                    onChange={() => clickOne(t.key)}
                                   >
                                     {t.name}
                                   </Checkbox>
