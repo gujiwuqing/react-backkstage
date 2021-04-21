@@ -21,7 +21,9 @@ export default function Index() {
   }));
   const goPage = (route: any) => {
     history.push(route.path);
-    changedTabList(route);
+    if (tabList.find((t) => t.path == route.path) == undefined) {
+    }
+    // changedTabList(route);
   };
 
   return (

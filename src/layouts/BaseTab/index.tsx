@@ -15,8 +15,42 @@ export default function index() {
     tabList: model.tabList,
     changedTabList: model.changedTabList,
   }));
+  const onMenuClick = ({ key }: any, item: any) => {
+    console.log('key', key, item);
+    switch (key) {
+      case 'refresh':
+        window.location.reload();
+        break;
+      case 'close-other':
+        closeOther(item.path);
+        break;
+    }
+  };
+
+  const closeOther = (item: any) => {
+    console.log('item.path', item.path, history.location.pathname);
+    if (item.path == history.location.pathname) {
+      const arr = [
+        { path: '/', name: 'home' },
+        { path: item.path, name: item.name },
+      ];
+      changedTabList(arr);
+      localStorage.setItem('tabList', JSON.stringify(arr));
+    } else {
+      let route = tabList.find(
+        (t: { path: string }) => t.path == history.location.pathname,
+      );
+      const arr = [
+        { path: '/', name: 'home' },
+        { path: route.path, name: route.name },
+      ];
+      changedTabList(arr);
+      localStorage.setItem('tabList', JSON.stringify(arr));
+      console.log('arr', arr);
+    }
+  };
   const renderMenus = (item: any) => (
-    <Menu>
+    <Menu onClick={(e) => onMenuClick(e, item)}>
       <Menu.Item key="refresh">
         <div>刷新</div>
       </Menu.Item>

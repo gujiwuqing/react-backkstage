@@ -42,7 +42,6 @@
     "js-export-excel": "^1.1.4",
     "markdown-it": "^12.0.4",
     "qs": "^6.9.6",
-    "react-amap": "^1.2.8",
     "react-amap-plugin-autocomplete": "^0.0.4",
     "react-color": "^2.19.3",
     "react-i18next": "^11.8.10",
