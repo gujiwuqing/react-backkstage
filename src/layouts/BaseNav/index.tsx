@@ -21,7 +21,13 @@ export default function Index() {
   }));
   const goPage = (route: any) => {
     history.push(route.path);
-    changedTabList(route);
+    let num = tabList.findIndex((t: any) => t.path == route.path);
+    if (num == -1) {
+      tabList.push({ path: route.path, name: route.name });
+      changedTabList([...tabList]);
+    }
+    sessionStorage.setItem('tabList', JSON.stringify([...tabList]));
+    // changedTabList(route);
   };
 
   return (
