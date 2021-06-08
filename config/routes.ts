@@ -82,24 +82,21 @@ const routes = [
         icon: 'iconfile',
       },
       {
-        exact: true,
         path: '/editor',
         title: '编辑器',
         name: 'editor',
         icon: 'iconfile',
         routes: [
           {
-            exact: true,
             path: '/editor/markdown',
             title: 'Markdown编辑器',
-            component: '@/pages/editor/markdown',
+            component: '@/pages/Editor/markdown',
             name: 'markdown',
           },
           {
-            exact: true,
             path: '/editor/Editor',
             title: 'Markdown编辑器',
-            component: '@/pages/editor/Editor',
+            component: '@/pages/Editor/Editor',
             name: 'markdown',
           },
         ],
