@@ -1,8 +1,10 @@
 import { extend } from 'umi-request';
 import { message } from 'antd';
 import { history } from 'umi';
+
 const request = extend({
   timeout: 15000,
+  prefix: process.env.NODE_ENV === 'development' ? '' : '/react-backstage',
   headers: {
     'Content-Type': 'application/x-www-form-urlencoded',
   },
