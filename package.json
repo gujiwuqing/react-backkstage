@@ -19,6 +19,7 @@
       "prettier --parser=typescript --write"
     ]
   },
+  "homepage": "https://gujiwuqing.github.io/react-backstage",
   "dependencies": {
     "@ant-design/charts": "^1.0.18",
     "@ant-design/pro-form": "^1.16.0",
