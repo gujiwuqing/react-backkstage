@@ -1,5 +1,6 @@
 const routes = [
   {
+    exact: true,
     path: '/login',
     title: '登录',
     component: '@/pages/login',
@@ -11,6 +12,7 @@ const routes = [
     component: '@/layouts',
     routes: [
       {
+        exact: true,
         path: '/',
         title: '首页',
         component: '@/pages/home',
@@ -18,24 +20,28 @@ const routes = [
         icon: 'iconhome',
       },
       {
+        exact: true,
         path: '/table',
         title: '表格',
         name: 'table',
         icon: 'iconbiaodanzujian-biaoge',
         routes: [
           {
+            exact: true,
             path: '/table/user/list',
             title: '用户管理',
             component: '@/pages/user',
             name: 'user-list',
           },
           {
+            exact: true,
             path: '/table/edit-table',
             title: '可编辑表格',
             component: '@/pages/edit-table',
             name: 'table-edit',
           },
           {
+            exact: true,
             path: '/table/drag-table',
             title: '可拖拽表格',
             component: '@/pages/drag-table',
@@ -44,6 +50,7 @@ const routes = [
         ],
       },
       {
+        exact: true,
         path: '/trag',
         title: '拖拽',
         component: '@/pages/trag',
@@ -51,6 +58,7 @@ const routes = [
         icon: 'iconfile',
       },
       {
+        exact: true,
         path: '/excel',
         title: '导出excel',
         component: '@/pages/excel',
@@ -58,6 +66,7 @@ const routes = [
         icon: 'iconfile-excel',
       },
       {
+        exact: true,
         path: '/test',
         title: '测试',
         component: '@/pages/test',
@@ -65,6 +74,7 @@ const routes = [
         icon: 'iconfile',
       },
       {
+        exact: true,
         path: '/upload',
         title: '上传',
         component: '@/pages/upload',
@@ -72,18 +82,21 @@ const routes = [
         icon: 'iconfile',
       },
       {
+        exact: true,
         path: '/editor',
         title: '编辑器',
         name: 'editor',
         icon: 'iconfile',
         routes: [
           {
+            exact: true,
             path: '/editor/markdown',
             title: 'Markdown编辑器',
             component: '@/pages/editor/markdown',
             name: 'markdown',
           },
           {
+            exact: true,
             path: '/editor/Editor',
             title: 'Markdown编辑器',
             component: '@/pages/editor/Editor',
@@ -91,6 +104,15 @@ const routes = [
           },
         ],
       },
+      {
+        exact: true,
+        path: '/dnd',
+        title: '测试',
+        component: '@/pages/dnd',
+        name: 'dnd',
+        icon: 'iconfile',
+      },
+      { component: '@/pages/404' },
     ],
   },
 ];
