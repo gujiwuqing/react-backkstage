@@ -20,33 +20,29 @@ const routes = [
         icon: 'iconhome',
       },
       {
-        exact: true,
         path: '/table',
         title: '表格',
         name: 'table',
         icon: 'iconbiaodanzujian-biaoge',
         routes: [
           {
-            exact: true,
             path: '/table/user/list',
             title: '用户管理',
             component: '@/pages/user',
             name: 'user-list',
           },
           {
-            exact: true,
             path: '/table/edit-table',
             title: '可编辑表格',
             component: '@/pages/edit-table',
             name: 'table-edit',
           },
-          {
-            exact: true,
-            path: '/table/drag-table',
-            title: '可拖拽表格',
-            component: '@/pages/drag-table',
-            name: 'table-drag',
-          },
+          // {
+          //   path: '/table/drag-table',
+          //   title: '可拖拽表格',
+          //   component: '@/pages/drag-table',
+          //   name: 'table-drag',
+          // },
         ],
       },
       {
@@ -64,14 +60,6 @@ const routes = [
         component: '@/pages/excel',
         name: 'excel',
         icon: 'iconfile-excel',
-      },
-      {
-        exact: true,
-        path: '/test',
-        title: '测试',
-        component: '@/pages/test',
-        name: 'test',
-        icon: 'iconfile',
       },
       {
         exact: true,

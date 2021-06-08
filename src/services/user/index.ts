@@ -1,9 +1,9 @@
 import request from '../../utils/request';
 import { userDTO } from './type';
-export function getUserList(data?: any) {
+export function getUserList(params?: any) {
   return request('/user/list', {
-    method: 'POST',
-    data,
+    method: 'GET',
+    params,
   });
 }
 

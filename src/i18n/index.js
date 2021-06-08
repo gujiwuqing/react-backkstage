@@ -21,10 +21,10 @@ i18n
     resources,
     lng: localStorage.getItem('language')
       ? localStorage.getItem('language')
-      : 'en_US',
+      : 'zh_CN',
     fallbackLng: localStorage.getItem('language')
       ? localStorage.getItem('language')
-      : 'en_US',
+      : 'zh_CN',
 
     keySeparator: false, // we do not use keys in form messages.welcome
 

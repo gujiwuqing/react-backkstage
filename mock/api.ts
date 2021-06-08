@@ -1,3 +1,5 @@
+import mockjs from 'mockjs';
+
 export default {
   // 支持值为 Object 和 Array
   'GET /api/city/list': {
@@ -34,6 +36,17 @@ export default {
     message: '成功',
     code: 200,
   },
+  'GET /user/list': mockjs.mock({
+    'list|100': [
+      {
+        name: '@cname',
+        'age|1-100': 50,
+        address: '@county(true)',
+        email: '@email',
+        sex: '@boolean',
+      },
+    ],
+  }),
 
   // GET 可忽略
   '/api/users/1': { id: 1 },
