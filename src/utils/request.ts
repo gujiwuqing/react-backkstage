@@ -4,7 +4,8 @@ import { history } from 'umi';
 
 const request = extend({
   timeout: 15000,
-  prefix: process.env.NODE_ENV === 'development' ? '' : '/react-backstage',
+  prefix:
+    'https://www.fastmock.site/mock/85c752f2a572df1e979659e4912eefd4/backstage',
   headers: {
     'Content-Type': 'application/x-www-form-urlencoded',
   },

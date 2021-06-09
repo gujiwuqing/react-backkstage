@@ -13,7 +13,7 @@ const UserList = () => {
       title: '性别',
       dataIndex: 'sex',
       key: 'sex',
-      render: (_) => (_ ? '男' : '女'),
+      render: (_: any) => (_ ? '男' : '女'),
     },
     {
       title: '年龄',
@@ -35,8 +35,11 @@ const UserList = () => {
     <>
       <BaseTable
         columns={columns}
+        key="id"
         request={async () => {
-          const { list } = await getUserList();
+          const {
+            data: { list },
+          } = await getUserList();
           return { data: list, total: list.length };
         }}
       />
