@@ -46,13 +46,27 @@ const routes = [
         ],
       },
       {
-        exact: true,
-        path: '/drag',
-        title: 'drag',
-        component: '@/pages/drag',
-        name: 'excel',
-        icon: 'iconfile-excel',
+        path: '/editor',
+        title: '编辑器',
+        name: 'editor',
+        icon: 'iconbiaodanzujian-biaoge',
+        routes: [
+          {
+            path: '/editor/rich-text',
+            title: '基础表格',
+            component: '@/pages/editor/rich-text',
+            name: 'rich-text',
+          },
+        ],
       },
+      // {
+      //   exact: true,
+      //   path: '/drag',
+      //   title: 'drag',
+      //   component: '@/pages/drag',
+      //   name: 'excel',
+      //   icon: 'iconfile-excel',
+      // },
       {
         exact: true,
         path: '/excel',
