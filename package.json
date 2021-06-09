@@ -29,6 +29,7 @@
     "ahooks": "^2.10.0",
     "antd": "^4.12.3",
     "axios": "^0.21.1",
+    "babel-plugin-transform-remove-console": "^6.9.4",
     "braft-editor": "^2.3.9",
     "braft-extensions": "^0.1.1",
     "china-division": "^2.3.1",

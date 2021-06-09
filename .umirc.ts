@@ -17,4 +17,7 @@ export default defineConfig({
   },
   fastRefresh: {},
   mock: {},
+  extraBabelPlugins: [
+    ['transform-remove-console', { exclude: ['error', 'warn'] }],
+  ],
 });
