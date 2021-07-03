@@ -15,9 +15,9 @@ export default defineConfig({
   devServer: {
     port: 8009,
   },
+  webpack5: {},
+  dynamicImport: {},
+  mfsu: {},
   fastRefresh: {},
   mock: {},
-  extraBabelPlugins: [
-    ['transform-remove-console', { exclude: ['error', 'warn'] }],
-  ],
 });

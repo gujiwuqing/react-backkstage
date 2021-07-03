@@ -23,7 +23,7 @@ export default function Index() {
     }),
   );
   return (
-    <Header className="site-header">
+    <div className="site-header">
       <div className="header-left">
         <div className="collapse-btn">
           {React.createElement(
@@ -54,6 +54,6 @@ export default function Index() {
         <ThemeColor />
         <UserInfo />
       </div>
-    </Header>
+    </div>
   );
 }
